@@ -21,7 +21,7 @@ class Main{
     for(var i = 0; i < NumCPUs; ++i){
       let Child = new CPP(__dirname + '/../Main.js');
       SupportedEvents.forEach(function(Event){
-        Child.on(Event, this['Action' + Event].bind(this));
+        Child.on(Event, this['Action' + Event].bind(this, Child));
       }.bind(this));
       Child.Send('SupportedEvents', SupportedEvents);
       this.Children.push(Child);
