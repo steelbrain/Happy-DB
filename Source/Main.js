@@ -58,11 +58,35 @@ class Main{
     }
     return Value;
   }
+  static ValidateArguments(TypeOrLength, Length){
+    if(typeof TypeOrLength === 'string'){
+      let IsOdd = Length % 2;
+      if(TypeOrLength === Main.ARGS_EVEN && IsOdd)
+        throw new Error(Main.MSG_ARGS_INVALID + '; Expected Even');
+      else if(TypeOrLength === Main.ARGS_ODD && !IsOdd){
+        throw new Error(Main.MSG_ARGS_INVALID + '; Expected Odd');
+      }
+    } else{
+      if(TypeOrLength > Length){
+        throw new Error(Main.MSG_ARGS_MORE);
+      } else if(TypeOrLength < Length){
+        throw new Error(Main.MSG_ARGS_LESS);
+      }
+    }
+  }
 }
 Main.VAL_NUMERIC = 'VAL_NUMERIC';
 Main.VAL_STRINGISH = 'VAL_STRING';
 Main.VAL_HASH = 'VAL_HASH';
 Main.VAL_LIST = 'VAL_LIST';
+
+Main.MSG_ARGS_MORE = 'Too Many Arguments';
+Main.MSG_ARGS_LESS = 'Too less Arguments';
+Main.MSG_ARGS_INVALID = 'Invalid Number of Arguments';
+
+Main.ARGS_EVEN = 'EVEN';
+Main.ARGS_ODD = 'ODD';
+
 module.exports = Main;
 
 // Load the functions
