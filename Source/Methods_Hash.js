@@ -202,7 +202,7 @@ Main.ActionHHSET = function(Request){
   let HKey = Request.shift();
   let HValue = Value.get(HKey);
   try {
-    Main.Validate(Main.VAL_HASH, 'HHSET', Value);
+    Main.Validate(Main.VAL_HASH, 'HHSET', HValue);
   } catch(err){
     HValue = new Map();
     Value.set(HKey, HValue);
@@ -211,4 +211,27 @@ Main.ActionHHSET = function(Request){
     HValue.set(Request[Number], Main.NormalizeType(Request[Number + 1]));
   }
   return {Type: 'OK'};
+};
+/**
+ * HHGET KEY HKEY HHKEY1 HHKEY2
+ */
+Main.ActionHHGET = function(Request){
+  let Key = Request.shift();
+  let Value = this.Database.get(Key);
+
+  let DefaultValue = Request.length === 1 ? '' : [];
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_HASH, 'HGET', Value);
+  else return DefaultValue;
+
+  let HKey = Request.shift();
+  let HValue = Value.get(HKey);
+
+  Main.Validate(Main.VAL_HASH, 'HHGET', HValue);
+  if(Request.length === 1){
+    return HValue.get(Request[0]) || '';
+  } else {
+    return Request.map((Name) => HValue.get(Name) || '')
+  }
 };
