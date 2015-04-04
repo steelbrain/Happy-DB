@@ -94,7 +94,7 @@ Main.MSG_ARGS_INVALID = 'Invalid Number of Arguments';
 Main.ARGS_EVEN = 'EVEN';
 Main.ARGS_ODD = 'ODD';
 
-Main.Timeouts = {};
+Main.prototype.Timeouts = {};
 
 module.exports = Main;
 
