@@ -82,6 +82,7 @@ class Main{
     }
   }
 }
+
 Main.VAL_NUMERIC = 'VAL_NUMERIC';
 Main.VAL_STRINGISH = 'VAL_STRING';
 Main.VAL_HASH = 'VAL_HASH';
@@ -93,6 +94,8 @@ Main.MSG_ARGS_INVALID = 'Invalid Number of Arguments';
 
 Main.ARGS_EVEN = 'EVEN';
 Main.ARGS_ODD = 'ODD';
+
+Main.Timeouts = {};
 
 module.exports = Main;
 
