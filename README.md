@@ -34,6 +34,8 @@ happy-db 6379
  - DEL
   - `DEL KEY` -> `1`
   - `DEL KEY1 KEY2 KEY3 ...` -> `3`
+ - PING -> `PONG`
+
 __Note:__ You will get the multiple values as an array by your Redis client, and single values as string.
 
 #### License
