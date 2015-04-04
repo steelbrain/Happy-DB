@@ -56,10 +56,10 @@ class Main{
       if(typeof Value !== 'string' && typeof Value !== 'number')
         throw new Error(`Cant ${Action} Non-Stringish Item`);
     } else if(Type === Main.VAL_HASH){
-      if(typeof Value !== 'object')
+      if(typeof Value !== 'object' || !Value.constructor || !Value.constructor.name === 'Map')
         throw new Error(`Cant ${Action} Non-Hash Item`);
     } else if(Type === Main.VAL_LIST){
-      if(typeof Value !== 'object' || !Value.constructor || !Value.constructor.name === 'Array')
+      if(typeof Value !== 'object' || !Value.constructor || !Value.constructor.name === 'Set')
         throw new Error(`Cant ${Action} Non-List Item`);
     }
     return Value;
