@@ -44,3 +44,13 @@ Main.ActionRPUSH = function(Request){
   Request.reverse().forEach((Item) => Value.unshift(Item));
   return {Type: 'OK'};
 };
+
+Main.ActionRPOP = function(Request){
+  Main.ValidateArguments(1, Request.length);
+  let Value = this.Database.get(Request.shift());
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_LIST, 'LPOP', Value);
+
+  return (Value && Value.pop()) || '';
+};
