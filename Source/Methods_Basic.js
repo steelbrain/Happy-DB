@@ -53,6 +53,16 @@ Main.ActionEXISTS = function(Request){
   }.bind(this));
 };
 
+Main.ActionPERSIST = function(Request){
+  if(Request.length === 1){
+    clearTimeout(this.Timeouts[Symbol.for(Request[0])]);
+  }
+  Request.forEach(function(Name){
+    clearTimeout(this.Timeouts[Symbol.for(Name)]);
+  }.bind(this));
+  return {Type: 'OK'};
+};
+
 Main.ActionEXPIRE = function(Request){
   Main.ValidateArguments(Main.ARGS_EVEN, Request.length);
   for(let Number = 0; Number < Request.length; Number += 2){
