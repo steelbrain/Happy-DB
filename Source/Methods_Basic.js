@@ -44,6 +44,15 @@ Main.ActionDEL = function(Request){
   return Length;
 };
 
+Main.ActionEXISTS = function(Request){
+  if(Request.length === 1){
+    return this.Database.has(Request[0]);
+  }
+  return Request.map(function(Name){
+    return this.Database.has(Name);
+  }.bind(this));
+};
+
 Main.ActionEXPIRE = function(Request){
   Main.ValidateArguments(Main.ARGS_EVEN, Request.length);
   for(let Number = 0; Number < Request.length; Number += 2){
