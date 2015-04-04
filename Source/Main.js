@@ -62,5 +62,3 @@ class Main{
     Child.Finished(Message);
   }
 }
-var Inst = new Main(9004, 4);
-Inst.Run();
