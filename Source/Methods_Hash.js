@@ -283,3 +283,35 @@ Main.ActionHHGETALL = function(Request){
   });
   return ToReturn;
 };
+
+
+/**
+ * HHEXISTS KEY HKEY HHKEY HHKEY2...
+ */
+Main.ActionHHEXISTS = function(Request){
+  if(Request.length < 3){
+    throw new Error(Main.MSG_ARGS_LESS);
+  }
+
+  Main.ValidateArguments(2, Request.length);
+
+  let Key = Request.shift();
+  let Value = this.Database.get(Key);
+
+  let ToReturn = Request.length === 2 ? '' : [];
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_HASH, 'HHEXISTS', Value);
+  else return ToReturn;
+
+  let HKey = Request.shift();
+  let HValue = Value.get(HKey);
+
+  Main.Validate(Main.VAL_HASH, 'HHEXISTS', HValue);
+
+  if(Request.length === 1){
+    return HValue.has(Request[0]) ? 1 : 0;
+  } else {
+    return Request.map((Name) => HValue.has(Name) ? 1 : 0);
+  }
+};
