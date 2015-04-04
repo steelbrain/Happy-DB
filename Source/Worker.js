@@ -30,6 +30,9 @@ class Worker{
         } else {
           Response = RedisProto.Encode(Response);
         }
+        if(Response === ''){
+          Response = '$0\r\n';
+        }
         this.Socket.write(Response + "\r\n");
       }.bind(this));
     }
