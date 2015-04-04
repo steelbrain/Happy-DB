@@ -212,6 +212,7 @@ Main.ActionHHSET = function(Request){
   }
   return {Type: 'OK'};
 };
+
 /**
  * HHGET KEY HKEY HHKEY1 HHKEY2
  */
@@ -222,7 +223,7 @@ Main.ActionHHGET = function(Request){
   let DefaultValue = Request.length === 1 ? '' : [];
 
   if(typeof Value !== 'undefined')
-    Main.Validate(Main.VAL_HASH, 'HGET', Value);
+    Main.Validate(Main.VAL_HASH, 'HHGET', Value);
   else return DefaultValue;
 
   let HKey = Request.shift();
@@ -234,4 +235,25 @@ Main.ActionHHGET = function(Request){
   } else {
     return Request.map((Name) => HValue.get(Name) || '')
   }
+};
+
+/**
+ * HHDEL KEY HKEY HHKEY1 HHKEY2
+ */
+Main.ActionHHDEL = function(Request){
+  let Key = Request.shift();
+  let Value = this.Database.get(Key);
+
+  let ToReturn = 0;
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_HASH, 'HHDEL', Value);
+  else return ToReturn;
+
+  let HKey = Request.shift();
+  let HValue = Value.get(HKey);
+
+  Main.Validate(Main.VAL_HASH, 'HHDEL', HValue);
+  Request.forEach((Name) => HValue.delete(Name) && ++ToReturn);
+  return ToReturn
 };
