@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/steelbrain/Happy-DB/issues"
   },
-  "homepage": "https://github.com/steelbrain/Happy-DB"
+  "homepage": "https://github.com/steelbrain/Happy-DB",
+  "bin": {
+    "happy-db" : "CLI.js"
+  }
 }
