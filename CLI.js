@@ -1,6 +1,15 @@
+#!/usr/bin/env iojs
+
 
 var
   Main = require('./Main');
-console.log(process.argv);
-//var Inst = new Main(9004, 4);
-//Inst.Run();
+if(process.argv.length !== 3 || isNaN(parseInt(process.argv[2]))){
+  console.error("You must provide a port to use");
+  process.exit(1);
+}
+try {
+  (new Main(process.argv[2])).Run();
+} catch(err){
+  console.log(err);
+  process.exit(1);
+}
