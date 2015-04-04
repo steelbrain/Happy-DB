@@ -4,8 +4,9 @@
   "description": "A super lightweight multi-threaded 100% redis compatible no sql database written purely in NodeJS",
   "main": "Main.js",
   "dependencies": {
-    "childprocess-promise": "^0.1.3",
-    "redis-proto": "^0.0.2"
+    "childprocess-promise": "latest",
+    "redis-proto": "latest",
+    "debug": "latest"
   },
   "devDependencies": {},
   "scripts": {
