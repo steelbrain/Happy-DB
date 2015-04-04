@@ -25,12 +25,12 @@ class Main{
       SupportedEvents.forEach(function(Child, Event){
         Child.on(Event, function(Request, Message){
           try {
-            Main['Action' + Event].call(this, Child, Request, Message);
+            Message.Result = Main['Action' + Event].call(this, Child, Request, Message);
           } catch(error){
             console.log(error.stack);
             Message.Result = {Type: 'Error', Message: error.message};
-            Child.Finished(Message);
           }
+          Child.Finished(Message);
         }.bind(this));
       }.bind(this, Child));
       Child.Send('SupportedEvents', SupportedEvents);
