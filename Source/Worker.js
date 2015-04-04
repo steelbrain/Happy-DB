@@ -18,7 +18,7 @@ class Worker{
     if(!Result.length || SupportedEvents.indexOf(Result[0]) === -1){
       this.Socket.write("-ERR unknown command '${Result[0] || ''}'\r\n");
     } else {
-      CPP.Request(Result[0], Result).then(function(Response){
+      CPP.Request(Result.shift(), Result).then(function(Response){
         if(Response === '+OK'){
           this.Socket.write(Response + "\r\n");
         } else {
