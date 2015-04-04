@@ -1,0 +1,31 @@
+{
+  "name": "happy-db",
+  "version": "0.0.1",
+  "description": "A super lightweight multi-threaded 100% redis compatible no sql database written purely in NodeJS",
+  "main": "Main.js",
+  "dependencies": {
+    "childprocess-promise": "^0.1.3",
+    "redis-proto": "^0.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/steelbrain/Happy-DB.git"
+  },
+  "keywords": [
+    "redis",
+    "db",
+    "nosql",
+    "no-sql",
+    "store"
+  ],
+  "author": "steelbrain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/steelbrain/Happy-DB/issues"
+  },
+  "homepage": "https://github.com/steelbrain/Happy-DB"
+}
