@@ -8,7 +8,7 @@ if(process.argv.length !== 3 || isNaN(parseInt(process.argv[2]))){
   process.exit(1);
 }
 try {
-  (new Main(process.argv[2])).Run();
+  (new Main(process.argv[2], process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'] + '/.happy-db')).Run();
 } catch(err){
   console.log(err);
   process.exit(1);
