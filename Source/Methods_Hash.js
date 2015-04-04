@@ -38,3 +38,23 @@ Main.ActionHGET = function(Request){
     });
   }
 };
+
+Main.ActionHDEL = function(Request){
+  if(Request.length < 2){
+    throw new Error(Main.MSG_ARGS_LESS);
+  }
+  let Length = 0;
+  let Key = Request.shift();
+  let Value = this.Database.get(Key);
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_HASH, 'HDEL', Value);
+  else
+    return Length;
+
+  Request.forEach(function(Name){
+    Value.delete(Name);
+    Length ++;
+  }.bind(this));
+  return Length;
+};
