@@ -25,9 +25,8 @@ class Main{
       SupportedEvents.forEach(function(Child, Event){
         Child.on(Event, function(Request, Message){
           try {
-            Message.Result = Main['Action' + Event].call(this, Child, Request, Message);
+            Message.Result = Main['Action' + Event].call(this, Request, Child, Message);
           } catch(error){
-            console.log(error.stack);
             Message.Result = {Type: 'Error', Message: error.message};
           }
           Child.Finished(Message);
