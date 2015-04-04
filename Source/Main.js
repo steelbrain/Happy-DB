@@ -41,7 +41,27 @@ class Main{
       Child.Target.send('Server', Server);
     }));
   }
+  
+  static Validate(Type, Action, Key, Value){
+    if(Type === Main.VAL_NUMERIC){
+      if(typeof Value !== 'number')
+        throw new Error("Cant ${Action} Non-Numeric Item");
+    } else if(Type === Main.VAL_STRINGISH){
+      if(typeof Value !== 'string' && typeof Value !== 'number')
+        throw new Error("Cant ${Action} Non-Stringish Item");
+    } else if(Type === Main.VAL_HASH){
+      if(typeof Value !== 'object')
+        throw new Error("Cant ${Action} Non-Hash Item");
+    } else if(Type === Main.VAL_LIST){
+      if(typeof Value !== 'object' || !Value.constructor || !Value.constructor.name === 'Array')
+        throw new Error("Cant ${Action} Non-List Item");
+    }
+  }
 }
+Main.VAL_NUMERIC = 'VAL_NUMERIC';
+Main.VAL_STRINGISH = 'VAL_STRING';
+Main.VAL_HASH = 'VAL_HASH';
+Main.VAL_LIST = 'VAL_LIST';
 module.exports = Main;
 
 // Load the functions
