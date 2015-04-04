@@ -49,6 +49,18 @@ class Main{
     Message.Result = {Type: 'OK'};
     Child.Finished(Message);
   }
+  static ActionGET(Child, Request, Message){
+    if(Request.length === 1){
+      Message.Result = this.DataBase.get(Request[0]) || null;
+    } else {
+      let ToReturn = [];
+      Request.forEach(function(Name){
+        ToReturn.push(this.DataBase.get(Name) || null);
+      }.bind(this));
+      Message.Result = ToReturn;
+    }
+    Child.Finished(Message);
+  }
 }
 var Inst = new Main(9004, 4);
 Inst.Run();
