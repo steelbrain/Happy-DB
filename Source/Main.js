@@ -6,14 +6,23 @@ var
   Net = require('net'),
   CPP = require('childprocess-promise'),
   DebugErrors = require('debug')('happy-db:errors'),
-  Debug = require('debug')('happy-db:calls');
+  Debug = require('debug')('happy-db:calls'),
+  Map = require('a-map'),
+  FS = require('fs');
 class Main{
-  constructor(Port){
+  constructor(Port, DBPath){
     this.Port = Number(Port);
+    this.DBPath = DBPath;
     this.Server = null;
     this.Children = [];
     this.Channels = new Map();
-    this.Database = new Map();
+    try {
+      this.Database = Main.Parse(JSON.parse(FS.readFileSync(DBPath).toString()));
+    } catch(error){
+      this.Database = new Map();
+    }
+    process.on('SIGTERM', Main.Close.bind(this));
+    process.on('SIGINT', Main.Close.bind(this));
   }
   Run(){
     let NumCPUs = OS.cpus().length;
@@ -84,6 +93,34 @@ class Main{
         throw new Error(Main.MSG_ARGS_LESS);
       }
     }
+  }
+  static Parse(Contents){
+    if(typeof Contents === 'object' && Contents !== null && !(Contents instanceof Array)){
+      let ToReturn = new Map();
+      for(let Key in Contents){
+        if(Contents.hasOwnProperty(Key)){
+          ToReturn.set(Key, Main.Parse(Contents[Key]));
+        }
+      }
+      return ToReturn;
+    } else {
+      return Contents;
+    }
+  }
+  static stringify(Map){
+    if(Map && Map.constructor && Map.constructor.name === 'Map'){
+      let ToReturn = {};
+      Map.forEach(function(Value, Key){
+        ToReturn[Key] = Main.stringify(Value);
+      });
+      return ToReturn;
+    } else {
+      return Map;
+    }
+  }
+  static Close(){
+    FS.writeFileSync(this.DBPath, JSON.stringify(Main.stringify(this.Database)));
+    process.exit();
   }
 }
 
