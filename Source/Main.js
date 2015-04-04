@@ -62,3 +62,4 @@ class Main{
     Child.Finished(Message);
   }
 }
+module.exports = Main;
