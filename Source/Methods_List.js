@@ -77,3 +77,17 @@ Main.ActionLREM = function(Request){
   }
   return Deleted;
 };
+
+Main.ActionLLEN = function(Request){
+  Main.ValidateArguments(1, Request.length);
+  let Value = this.Database.get(Request.shift());
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_LIST, 'LPOP', Value);
+  else return 0;
+  let Length = 0;
+  for(let Key of Value){
+    ++ Length;
+  }
+  return Length;
+};
