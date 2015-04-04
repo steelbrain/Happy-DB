@@ -220,7 +220,7 @@ Main.ActionHHGET = function(Request){
   let Key = Request.shift();
   let Value = this.Database.get(Key);
 
-  let DefaultValue = Request.length === 1 ? '' : [];
+  let DefaultValue = Request.length === 2 ? '' : [];
 
   if(typeof Value !== 'undefined')
     Main.Validate(Main.VAL_HASH, 'HHGET', Value);
@@ -256,4 +256,30 @@ Main.ActionHHDEL = function(Request){
   Main.Validate(Main.VAL_HASH, 'HHDEL', HValue);
   Request.forEach((Name) => HValue.delete(Name) && ++ToReturn);
   return ToReturn
+};
+
+/**
+ * HHGETALL KEY HKEY
+ */
+Main.ActionHHGETALL = function(Request){
+  Main.ValidateArguments(2, Request.length);
+
+  let Key = Request.shift();
+  let Value = this.Database.get(Key);
+
+  let ToReturn = [];
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_HASH, 'HGETALL', Value);
+  else return ToReturn;
+
+  let HKey = Request.shift();
+  let HValue = Value.get(HKey);
+
+  Main.Validate(Main.VAL_HASH, 'HGETALL', HValue);
+  HValue.forEach(function(Value, Key){
+    ToReturn.push(Key);
+    ToReturn.push(Value);
+  });
+  return ToReturn;
 };
