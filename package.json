@@ -32,5 +32,8 @@
   "homepage": "https://github.com/steelbrain/Happy-DB",
   "bin": {
     "happy-db" : "CLI.js"
+  },
+  "scripts":{
+    "prepublish": "mkdir -p Dist; uc-compile Source/Main.js; uc-compile Source/Methods_Basic.js; uc-compile Source/Methods_Hash.js; uc-compile Source/Methods_List.js; uc-compile Source/Worker.js"
   }
 }
