@@ -22,3 +22,19 @@ Main.ActionHSET = function(Request){
   }
   return {Type: 'OK'};
 };
+
+Main.ActionHGET = function(Request){
+  let Key = Request.shift();
+  let Value = this.Database.get(Key);
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_HASH, 'HGET', Value);
+
+  if(Request.length === 1){
+    return Value && Value.get(Request[0]) || '';
+  } else {
+    return Request.map(function(Key){
+      return Value && Value.get(Key) || '';
+    });
+  }
+};
