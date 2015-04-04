@@ -12,9 +12,18 @@ class Main{
     this.Children = [];
   }
   Run(){
-    var NumCPUs = OS.cpus().length;
+    let NumCPUs = OS.cpus().length;
+    let SupportedEvents = [];
+    for(let Name in this){
+      if (typeof this[Name] === 'function' && Name.substr(0, 6) === 'Action')
+        SupportedEvents.push(Name.substr(6));
+    }
     for(var i = 0; i < NumCPUs; ++i){
       let Child = new CPP(__dirname + '/../Main.js');
+      SupportedEvents.forEach(function(Event){
+        Child.on(Event, this['Action' + Event].bind(this));
+      }.bind(this));
+      Child.Send('SupportedEvents', SupportedEvents);
       this.Children.push(Child);
     }
     let Server = this.Server = Net.createServer();
