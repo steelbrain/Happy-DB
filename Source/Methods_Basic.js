@@ -44,3 +44,18 @@ Main.ActionDEL = function(Request){
   }.bind(this));
   return Length;
 };
+
+Main.ActionEXPIRE = function(Request){
+  Main.ValidateArguments(Main.ARGS_EVEN, Request.length);
+  for(let Number = 0; Number < Request.length; Number += 2){
+    let Key = Request[Number];
+    let Value = Main.NormalizeType(Request[Number + 1]);
+    if(typeof Value !== 'number')
+      throw new Error("EXPIRE Expects even parameters to be numeric");
+    clearTimeout(Main.Timeouts[Key]);
+    setTimeout(function(Key){
+      Main.ActionDEL.call(this, [Key]);
+    }.bind(this, Key), Value * 1000);
+  }
+  return {Type: 'OK'};
+};
