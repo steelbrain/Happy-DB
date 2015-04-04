@@ -3,7 +3,7 @@
 "use strict";
 var Main = module.parent.exports;
 
-Main.ActionSET = function(Child, Request){
+Main.ActionSET = function(Request){
   Main.ValidateArguments(Main.ARGS_EVEN, Request.length);
   for(let Number = 0; Number < Request.length; Number += 2){
     let Value = Main.NormalizeType(Request[Number + 1]);
@@ -12,16 +12,16 @@ Main.ActionSET = function(Child, Request){
   return {Type: 'OK'};
 };
 
-Main.ActionGET = function(Child, Request){
+Main.ActionGET = function(Request){
   if(Request.length === 1){
-    return this.Database.get(Request[0]) || null;
+    return this.Database.get(Request[0]) || '';
   }
   return Request.map(function(Name){
-    return this.Database.get(Name) || null;
+    return this.Database.get(Name) || '';
   }.bind(this));
 };
 
-Main.ActionINCR = function(Child, Request){
+Main.ActionINCR = function(Request){
   if(Request.length === 1){
     let Value = this.Database.get(Request[0]) || 0;
     Main.Validate(Main.VAL_NUMERIC, 'INCR', Value);
@@ -34,4 +34,13 @@ Main.ActionINCR = function(Child, Request){
     this.Database.set(Name, ++Value);
     return Value;
   }.bind(this));
+};
+
+Main.ActionDEL = function(Request){
+  let Length = 0;
+  Request.forEach(function(Name){
+    this.Database.delete(Name);
+    Length ++;
+  }.bind(this));
+  return Length;
 };
