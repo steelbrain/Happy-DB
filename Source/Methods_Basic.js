@@ -6,8 +6,7 @@ var Main = module.parent.exports;
 Main.ActionSET = function(Request){
   Main.ValidateArguments(Main.ARGS_EVEN, Request.length);
   for(let Number = 0; Number < Request.length; Number += 2){
-    let Value = Main.NormalizeType(Request[Number + 1]);
-    this.Database.set(Request[Number], Value);
+    this.Database.set(Request[Number], Main.NormalizeType(Request[Number + 1]));
   }
   return {Type: 'OK'};
 };
@@ -52,8 +51,9 @@ Main.ActionEXPIRE = function(Request){
     let Value = Main.NormalizeType(Request[Number + 1]);
     if(typeof Value !== 'number')
       throw new Error("EXPIRE Expects even parameters to be numeric");
-    clearTimeout(this.Timeouts[Key]);
-    this.Timeouts[Key] = setTimeout(function(Key){
+    let TimeoutKey = Symbol.for(Key);
+    clearTimeout(this.Timeouts[TimeoutKey]);
+    this.Timeouts[TimeoutKey] = setTimeout(function(Key){
       Main.ActionDEL.call(this, [Key]);
     }.bind(this, Key), Value * 1000);
   }
