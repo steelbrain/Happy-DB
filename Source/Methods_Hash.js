@@ -58,3 +58,27 @@ Main.ActionHDEL = function(Request){
   }.bind(this));
   return Length;
 };
+
+Main.ActionHEXPIRE = function(Request){
+  Main.ValidateArguments(Main.ARGS_ODD, Request.length);
+  let Key = Request.shift();
+  let Value = this.Database.get(Key);
+  let ToReturn = {Type: 'OK'};
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_HASH, 'HEXPIRE', Value);
+
+  for(let Number = 0; Number < Request.length; Number += 2){
+    let HKey = Request[Number];
+    let HTimeout = Main.NormalizeType(Request[Number + 1]);
+    if(typeof HTimeout !== 'number')
+      throw new Error("EXPIRE Expects even parameters to be numeric");
+    let TimeoutKey = Symbol.for(Key + "\n" + HKey);
+    clearTimeout(this.Timeouts[TimeoutKey]);
+    this.Timeouts[TimeoutKey] = setTimeout(function(HKey){
+      Main.ActionHDEL.call(this, [Key, HKey]);
+    }.bind(this, HKey), HTimeout * 1000);
+  }
+
+  return ToReturn;
+};
