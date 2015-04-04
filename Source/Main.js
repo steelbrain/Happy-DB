@@ -100,3 +100,4 @@ module.exports = Main;
 
 // Load the functions
 require('./Methods_Basic');
+require('./Methods_Hash');
