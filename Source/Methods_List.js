@@ -54,3 +54,26 @@ Main.ActionRPOP = function(Request){
 
   return (Value && Value.pop()) || '';
 };
+
+Main.ActionLREM = function(Request){
+  if(Request.length < 3){
+    throw new Error(Main.MSG_ARGS_LESS);
+  }
+  let Value = this.Database.get(Request.shift());
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_LIST, 'LPOP', Value);
+  else return 0;
+
+  let Deleted = 0;
+  let I = 0;
+  let Index = -1;
+  let Count = Main.NormalizeType(Request[0]);
+  if(typeof Count !== 'number')
+    throw new Error("EXPIRE Expects even parameters to be numeric");
+  while((Index = Value.indexOf(Request[1])) !== -1 && I < Count && ++I){
+    Value.splice(Index, 1);
+    ++ Deleted;
+  }
+  return Deleted;
+};
