@@ -24,6 +24,11 @@ happy-db 6379
  - SET
   - `SET KEY VALUE` -> `OK`
   - `SET KEY1 VALUE1 KEY2 VALUE2 KEY3 VALUE3 ...` -> `OK`
+ - INCR
+  - `INCR KEY` -> `1`
+  - `INCR KEY1 KEY2 KEY3` -> `1 1 1`
+
+__Note:__ You will get the multiple values as an array by your Redis client, and single values as string.
 
 #### License
 
