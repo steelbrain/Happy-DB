@@ -102,3 +102,6 @@ Main.ActionHEXISTS = function(Request){
     });
   }
 };
+
+Main.ActionHMGET = Main.ActionHGET;
+Main.ActionHMSET = Main.ActionHSET;
