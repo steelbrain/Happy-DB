@@ -150,5 +150,23 @@ Main.ActionHLEN = function(Request){
   return Value.size
 };
 
+Main.ActionHVALS = function(Request){
+  Main.ValidateArguments(1, Request.length);
+
+  let Value = this.Database.get(Request[0]);
+  let ToReturn = [];
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_HASH, 'HEXISTS', Value);
+  else
+    return ToReturn;
+  let Iterator = Value.values();
+  let IteratorVal = null;
+  while(!(IteratorVal = Iterator.next()).done){
+    ToReturn.push(IteratorVal.value);
+  }
+  return ToReturn;
+};
+
 Main.ActionHMGET = Main.ActionHGET;
 Main.ActionHMSET = Main.ActionHSET;
