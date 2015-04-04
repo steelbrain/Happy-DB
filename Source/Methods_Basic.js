@@ -1,5 +1,7 @@
 
 
+// @Compiler-Transpile "true"
+// @Compiler-Output "../Dist/Methods_Basic.js"
 "use strict";
 var Main = module.parent.exports;
 

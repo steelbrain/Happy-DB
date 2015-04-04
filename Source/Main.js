@@ -1,5 +1,7 @@
 
 
+// @Compiler-Transpile "true"
+// @Compiler-Output "../Dist/Main.js"
 "use strict";
 var
   OS = require('os'),

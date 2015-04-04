@@ -1,5 +1,7 @@
 
 
+// @Compiler-Transpile "true"
+// @Compiler-Output "../Dist/Worker.js"
 "use strict";
 var
   CPP = new (require('childprocess-promise')),
