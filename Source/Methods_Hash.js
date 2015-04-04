@@ -170,3 +170,45 @@ Main.ActionHVALS = function(Request){
 
 Main.ActionHMGET = Main.ActionHGET;
 Main.ActionHMSET = Main.ActionHSET;
+
+// Custom Functions
+/**
+ * I personally needed the features below to get this kind-of behaviour
+ * =======================
+ * QP:USERS {
+ *  USER:1 {
+ *   NAME: "Steel"
+ *   USERNAME: "SteelBrain"
+ *  }
+ * }
+ */
+
+/**
+ * HHSET KEY HKEY HHKEY HHVALUE HHKEY2 HHVALUE2
+ */
+Main.ActionHHSET = function(Request){
+  Main.ValidateArguments(Main.ARGS_EVEN, Request.length);
+  if(Request.length < 4){
+    throw new Error(Main.MSG_ARGS_LESS);
+  }
+  let Key = Request.shift();
+  let Value = this.Database.get(Key);
+  try {
+    Main.Validate(Main.VAL_HASH, 'HHSET', Value);
+  } catch(err){
+    Value = new Map();
+    this.Database.set(Key, Value);
+  }
+  let HKey = Request.shift();
+  let HValue = Value.get(HKey);
+  try {
+    Main.Validate(Main.VAL_HASH, 'HHSET', Value);
+  } catch(err){
+    HValue = new Map();
+    Value.set(HKey, HValue);
+  }
+  for(let Number = 0; Number < Request.length; Number += 2){
+    HValue.set(Request[Number], Main.NormalizeType(Request[Number + 1]));
+  }
+  return {Type: 'OK'};
+};
