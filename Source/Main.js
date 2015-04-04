@@ -4,7 +4,8 @@
 var
   OS = require('os'),
   Net = require('net'),
-  CPP = require('childprocess-promise');
+  CPP = require('childprocess-promise'),
+  Debug = require('debug')('happy-db:errors');
 class Main{
   constructor(Port){
     this.Port = Number(Port);
@@ -27,6 +28,7 @@ class Main{
           try {
             Message.Result = Main['Action' + Event].call(this, Request, Child, Message);
           } catch(error){
+            Debug(error.stack);
             Message.Result = {Type: 'Error', Message: error.message};
           }
           Child.Finished(Message);
