@@ -19,6 +19,16 @@ Main.ActionLPUSH = function(Request){
   return {Type: 'OK'};
 };
 
+Main.ActionLPOP = function(Request){
+  Main.ValidateArguments(1, Request.length);
+  let Value = this.Database.get(Request.shift());
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_LIST, 'LPOP', Value);
+
+  return (Value && Value.shift()) || '';
+};
+
 Main.ActionRPUSH = function(Request){
   if(Request.length < 2){
     throw new Error(Main.MSG_ARGS_LESS);
@@ -26,7 +36,7 @@ Main.ActionRPUSH = function(Request){
   let Key = Request.shift();
   let Value = this.Database.get(Key);
   try {
-    Main.Validate(Main.VAL_LIST, 'LPUSH', Value);
+    Main.Validate(Main.VAL_LIST, 'RPUSH', Value);
   } catch(err){
     Value = [];
     this.Database.set(Key, Value);
