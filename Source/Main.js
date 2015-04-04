@@ -51,16 +51,16 @@ class Main{
   static Validate(Type, Action, Value){
     if(Type === Main.VAL_NUMERIC){
       if(typeof Value !== 'number')
-        throw new Error("Cant ${Action} Non-Numeric Item");
+        throw new Error(`Cant ${Action} Non-Numeric Item`);
     } else if(Type === Main.VAL_STRINGISH){
       if(typeof Value !== 'string' && typeof Value !== 'number')
-        throw new Error("Cant ${Action} Non-Stringish Item");
+        throw new Error(`Cant ${Action} Non-Stringish Item`);
     } else if(Type === Main.VAL_HASH){
       if(typeof Value !== 'object')
-        throw new Error("Cant ${Action} Non-Hash Item");
+        throw new Error(`Cant ${Action} Non-Hash Item`);
     } else if(Type === Main.VAL_LIST){
       if(typeof Value !== 'object' || !Value.constructor || !Value.constructor.name === 'Array')
-        throw new Error("Cant ${Action} Non-List Item");
+        throw new Error(`Cant ${Action} Non-List Item`);
     }
     return Value;
   }
