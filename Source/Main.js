@@ -10,6 +10,7 @@ class Main{
     this.Port = Port;
     this.Server = null;
     this.Children = [];
+    this.DataBase = new Map();
   }
   Run(){
     let NumCPUs = OS.cpus().length;
