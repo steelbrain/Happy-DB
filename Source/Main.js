@@ -12,6 +12,7 @@ class Main{
     this.Port = Number(Port);
     this.Server = null;
     this.Children = [];
+    this.Channels = new Map();
     this.Database = new Map();
   }
   Run(){
