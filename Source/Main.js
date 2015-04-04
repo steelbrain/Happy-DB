@@ -14,14 +14,14 @@ class Main{
   Run(){
     let NumCPUs = OS.cpus().length;
     let SupportedEvents = [];
-    for(let Name in this){
-      if (typeof this[Name] === 'function' && Name.substr(0, 6) === 'Action')
+    for(let Name in Main){
+      if (typeof Main[Name] === 'function' && Name.substr(0, 6) === 'Action')
         SupportedEvents.push(Name.substr(6));
     }
     for(var i = 0; i < NumCPUs; ++i){
       let Child = new CPP(__dirname + '/../Main.js');
       SupportedEvents.forEach(function(Event){
-        Child.on(Event, this['Action' + Event].bind(this, Child));
+        Child.on(Event, Main['Action' + Event].bind(this, Child));
       }.bind(this));
       Child.Send('SupportedEvents', SupportedEvents);
       this.Children.push(Child);
