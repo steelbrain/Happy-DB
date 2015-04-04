@@ -1,6 +1,7 @@
 Happy-DB
 ========
 A super lightweight multi-threaded 100% redis compatible no sql database written purely in NodeJS.
+
 Happy-DB uses Redis Protocol, which means that **all** of your existing Redis clients would work correctly with Happy-DB.
 
 #### Installation
