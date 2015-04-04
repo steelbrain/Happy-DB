@@ -19,11 +19,18 @@ class Worker{
       this.Socket.write("-ERR unknown command '${Result[0] || ''}'\r\n");
     } else {
       CPP.Request(Result.shift(), Result).then(function(Response){
-        if(Response === '+OK'){
-          this.Socket.write(Response + "\r\n");
+        if(typeof Response === 'object'){
+          if(Response.Type === 'Error') {
+            Response = '-' + Response.Message;
+          } else if(Response.Type === 'OK'){
+            Response = '+OK';
+          } else {
+            Response = '';
+          }
         } else {
-          this.Socket.write(RedisProto.Encode(Response) + "\r\n");
+          Response = RedisProto.Encode(Response);
         }
+        this.Socket.write(Response + "\r\n");
       }.bind(this));
     }
   }
