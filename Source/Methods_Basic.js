@@ -95,6 +95,18 @@ Main.ActionEXPIRE = function(Request){
   return {Type: 'OK'};
 };
 
+Main.ActionRENAME = function(Request){
+  Main.ValidateArguments(Main.ARGS_EVEN, Request.length);
+  for(let Number = 0; Number < Request.length; Number += 2) {
+    let Key = Request[Number];
+    let Value = Main.NormalizeType(Request[Number + 1]);
+    if(this.Database.has(Key)){
+      this.Database.set(Value, this.Database.get(Key));
+      this.Database.delete(Key);
+    }
+  }
+};
+
 Main.ActionPING = function(){
   return 'PONG';
 };
