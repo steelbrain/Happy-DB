@@ -19,7 +19,7 @@ class Worker{
       this.Socket.write("-ERR unknown command '${Result[0] || ''}'\r\n");
     } else {
       CPP.Request(Result.shift(), Result).then(function(Response){
-        if(!(Response instanceof Array) && typeof Response === 'object'){
+        if(!(Response instanceof Array) && Response !== null && typeof Response === 'object'){
           if(Response.Type === 'Error') {
             Response = '-' + Response.Message;
           } else if(Response.Type === 'OK'){
