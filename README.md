@@ -23,7 +23,8 @@ happy-db 6379
  - HSET, HGET, HDEL, **HEXPIRE**, HEXISTS, HGETALL, HKEYS, HLEN, HVALS, HMGET, HMSET
  - LPUSH, LPOP, RPUSH, RPOP, LREM, LLEN
 
-__Note:__ You will get the multiple values as an array by your Redis client, and single values as string.
+__Note:__ For almost all commands, Happy-DB supports multiple arguments and then returns an array of response,
+for example doing `GET KEY1 KEY2 KEY3` will give you an array of `VALUE1 VALUE2 VALUE3`.
 
 #### License
 
