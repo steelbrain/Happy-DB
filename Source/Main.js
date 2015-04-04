@@ -15,6 +15,7 @@ class Main{
   Run(){
     let NumCPUs = OS.cpus().length;
     let SupportedEvents = [];
+
     for(let Name in Main){
       if (typeof Main[Name] === 'function' && Name.substr(0, 6) === 'Action')
         SupportedEvents.push(Name.substr(6));
@@ -38,6 +39,15 @@ class Main{
     this.Server.listen(this.Port, this.Children.forEach.bind(this.Children, function(Child){
       Child.Target.send('Server', Server);
     }));
+  }
+  static ActionSET(Child, Request, Message){
+    if(Request.length % 2 !== 0)
+      throw new Error("Invalid Parameter length, Parameter number should be even");
+    for(let Number = 0; Number < Request.length; Number += 2){
+      this.DataBase.set(Request[Number], Request[Number + 1]);
+    }
+    Message.Result = {Type: 'OK'};
+    Child.Finished(Message);
   }
 }
 var Inst = new Main(9004, 4);
