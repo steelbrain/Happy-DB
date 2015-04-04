@@ -42,7 +42,7 @@ class Main{
   }
 
   static NormalizeType(Value){
-    let ValueInt = Value;
+    let ValueInt = parseInt(Value);
     if(!isNaN(ValueInt) && ValueInt.toString() === Value){
       return ValueInt;
     }
