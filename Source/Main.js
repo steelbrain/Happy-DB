@@ -7,7 +7,7 @@ var
   CPP = require('childprocess-promise');
 class Main{
   constructor(Port){
-    this.Port = Port;
+    this.Port = Number(Port);
     this.Server = null;
     this.Children = [];
     this.DataBase = new Map();
