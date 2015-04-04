@@ -41,7 +41,14 @@ class Main{
       Child.Target.send('Server', Server);
     }));
   }
-  
+
+  static NormalizeType(Value){
+    let ValueInt = Value;
+    if(!isNaN(ValueInt) && ValueInt.toString() === Value){
+      return ValueInt;
+    }
+    return Value;
+  }
   static Validate(Type, Action, Value){
     if(Type === Main.VAL_NUMERIC){
       if(typeof Value !== 'number')
