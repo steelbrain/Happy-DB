@@ -59,3 +59,7 @@ Main.ActionEXPIRE = function(Request){
   }
   return {Type: 'OK'};
 };
+
+Main.ActionPING = function(){
+  return 'PONG';
+};
