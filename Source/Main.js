@@ -64,7 +64,7 @@ class Main{
       if(typeof Value !== 'object' || !Value.constructor || !Value.constructor.name === 'Map')
         throw new Error(`Cant ${Action} Non-Hash Item`);
     } else if(Type === Main.VAL_LIST){
-      if(typeof Value !== 'object' || !Value.constructor || !Value.constructor.name === 'Set')
+      if(typeof Value !== 'object' || !Value.constructor || !Value.constructor.name === 'Array')
         throw new Error(`Cant ${Action} Non-List Item`);
     }
     return Value;
@@ -106,3 +106,4 @@ module.exports = Main;
 // Load the functions
 require('./Methods_Basic');
 require('./Methods_Hash');
+require('./Methods_List');
