@@ -3,7 +3,7 @@
 "use strict";
 var Main = module.parent.exports;
 
-Main.ActionSet = function(Child, Request, Message){
+Main.ActionSet = function(Child, Request){
   Main.ValidateArguments(Main.ARGS_EVEN, Request.length);
   for(let Number = 0; Number < Request.length; Number += 2){
     let Value = Main.NormalizeType(Request[Number + 1]);
@@ -12,7 +12,7 @@ Main.ActionSet = function(Child, Request, Message){
   return {Type: 'OK'};
 };
 
-Main.ActionGET = function(Child, Request, Message){
+Main.ActionGET = function(Child, Request){
   if(Request.length === 1){
     return this.Database.get(Request[0]) || null;
   }
@@ -21,7 +21,7 @@ Main.ActionGET = function(Child, Request, Message){
   }.bind(this));
 };
 
-Main.ActionINCR = function(Child, Request, Message){
+Main.ActionINCR = function(Child, Request){
   if(Request.length === 1){
     let Value = this.Database.get(Request[0]) || 0;
     Main.Validate(Main.VAL_NUMERIC, 'INCR', Value);
