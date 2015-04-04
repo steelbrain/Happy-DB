@@ -1,6 +1,6 @@
 {
   "name": "happy-db",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A super lightweight multi-threaded 100% redis compatible no sql database written purely in NodeJS",
   "main": "Main.js",
   "dependencies": {
