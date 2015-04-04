@@ -138,5 +138,17 @@ Main.ActionHKEYS = function(Request){
   return ToReturn;
 };
 
+Main.ActionHLEN = function(Request){
+  Main.ValidateArguments(1, Request.length);
+
+  let Value = this.Database.get(Request[0]);
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_HASH, 'HEXISTS', Value);
+  else
+    return 0;
+  return Value.size
+};
+
 Main.ActionHMGET = Main.ActionHGET;
 Main.ActionHMSET = Main.ActionHSET;
