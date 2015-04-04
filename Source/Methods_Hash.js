@@ -293,8 +293,6 @@ Main.ActionHHEXISTS = function(Request){
     throw new Error(Main.MSG_ARGS_LESS);
   }
 
-  Main.ValidateArguments(2, Request.length);
-
   let Key = Request.shift();
   let Value = this.Database.get(Key);
 
@@ -314,4 +312,39 @@ Main.ActionHHEXISTS = function(Request){
   } else {
     return Request.map((Name) => HValue.has(Name) ? 1 : 0);
   }
+};
+
+/**
+ * HHEXPIRE KEY HKEY HHKEY1 HHKEY1Timeout HHKEY2 HHKEY2Timeout...
+ */
+Main.ActionHHEXPIRE = function(Request){
+  Main.ValidateArguments(Main.ARGS_EVEN, Request.length);
+
+  let Key = Request.shift();
+  let Value = this.Database.get(Key);
+
+  let ToReturn = {Type: "OK"};
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_HASH, 'HHEXISTS', Value);
+  else return ToReturn;
+
+  let HKey = Request.shift();
+  let HValue = Value.get(HKey);
+
+  Main.Validate(Main.VAL_HASH, 'HHEXISTS', HValue);
+
+  for(let Number = 0; Number < Request.length; Number += 2){
+    let HHKey = Request[Number];
+    let HHTimeout = Main.NormalizeType(Request[Number + 1]);
+    if(typeof HHTimeout !== 'number')
+      throw new Error("EXPIRE Expects even parameters to be numeric");
+    let TimeoutKey = Symbol.for(Key + "\n" + HKey + "\n" + HHKey);
+    clearTimeout(this.Timeouts[TimeoutKey]);
+    this.Timeouts[TimeoutKey] = setTimeout(function(HKey, HHKey){
+      Main.ActionHHDEL.call(this, [Key, HKey, HHKey]);
+    }.bind(this, HKey, HHKey), HHTimeout * 1000);
+  }
+
+  return ToReturn;
 };
