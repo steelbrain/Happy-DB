@@ -63,6 +63,22 @@ Main.ActionPERSIST = function(Request){
   return {Type: 'OK'};
 };
 
+Main.ActionPEXPIRE = function(Request){
+  Main.ValidateArguments(Main.ARGS_EVEN, Request.length);
+  for(let Number = 0; Number < Request.length; Number += 2){
+    let Key = Request[Number];
+    let Value = Main.NormalizeType(Request[Number + 1]);
+    if(typeof Value !== 'number')
+      throw new Error("EXPIRE Expects even parameters to be numeric");
+    let TimeoutKey = Symbol.for(Key);
+    clearTimeout(this.Timeouts[TimeoutKey]);
+    this.Timeouts[TimeoutKey] = setTimeout(function(Key){
+      Main.ActionDEL.call(this, [Key]);
+    }.bind(this, Key), Value);
+  }
+  return {Type: 'OK'};
+};
+
 Main.ActionEXPIRE = function(Request){
   Main.ValidateArguments(Main.ARGS_EVEN, Request.length);
   for(let Number = 0; Number < Request.length; Number += 2){
