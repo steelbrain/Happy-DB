@@ -19,22 +19,9 @@ happy-db 6379
 
 #### Features Supported
 
- - GET
-  - `GET KEY` -> `VALUE`
-  - `GET KEY1 KEY2 KEY3 ...` -> `VALUE1 VALUE2 VALUE3`
- - SET
-  - `SET KEY VALUE` -> `OK`
-  - `SET KEY1 VALUE1 KEY2 VALUE2 KEY3 VALUE3 ...` -> `OK`
- - INCR
-  - `INCR KEY` -> `1`
-  - `INCR KEY1 KEY2 KEY3 ...` -> `1 1 1`
- - EXPIRE
-  - `EXPIRE KEY TIMEOUT` -> `OK`
-  - `EXPIRE KEY1 TIMEOUT1 KEY2 TIMEOUT2 ...` -> `OK`
- - DEL
-  - `DEL KEY` -> `1`
-  - `DEL KEY1 KEY2 KEY3 ...` -> `3`
- - PING -> `PONG`
+ - GET, SET, INCR, DEL, EXISTS, PERSIST, EXPIRE, PEXPIRE, RENAME, PING
+ - HSET, HGET, HDEL, **HEXPIRE**, HEXISTS, HGETALL, HKEYS, HLEN, HVALS, HMGET, HMSET
+ - LPUSH, LPOP, RPUSH, RPOP, LREM, LLEN
 
 __Note:__ You will get the multiple values as an array by your Redis client, and single values as string.
 
