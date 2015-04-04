@@ -42,7 +42,7 @@ class Main{
     }));
   }
   
-  static Validate(Type, Action, Key, Value){
+  static Validate(Type, Action, Value){
     if(Type === Main.VAL_NUMERIC){
       if(typeof Value !== 'number')
         throw new Error("Cant ${Action} Non-Numeric Item");
@@ -56,6 +56,7 @@ class Main{
       if(typeof Value !== 'object' || !Value.constructor || !Value.constructor.name === 'Array')
         throw new Error("Cant ${Action} Non-List Item");
     }
+    return Value;
   }
 }
 Main.VAL_NUMERIC = 'VAL_NUMERIC';
