@@ -6,7 +6,8 @@
   "dependencies": {
     "childprocess-promise": "latest",
     "redis-proto": "latest",
-    "debug": "latest"
+    "debug": "latest",
+    "a-map": "latest"
   },
   "devDependencies": {},
   "scripts": {
