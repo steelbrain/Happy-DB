@@ -1,7 +1,9 @@
 
 
 "use strict";
-var Main = module.parent.exports;
+var
+  Main = module.parent.exports,
+  Map = require('a-map');
 
 Main.ActionHSET = function(Request){
   if(Request.length < 3){
