@@ -82,3 +82,23 @@ Main.ActionHEXPIRE = function(Request){
 
   return ToReturn;
 };
+
+Main.ActionHEXISTS = function(Request){
+  if(Request.length < 2){
+    throw new Error(Main.MSG_ARGS_LESS);
+  }
+
+  let Key = Request.shift();
+  let Value = this.Database.get(Key);
+
+  if(typeof Value !== 'undefined')
+    Main.Validate(Main.VAL_HASH, 'HEXISTS', Value);
+
+  if(Request.length === 1){
+    return (Value && Value.has(Request[0])) === true ? 1 : 0;
+  } else {
+    return Request.map(function(HKey){
+      return (Value && Value.has(HKey)) === true ? 1 : 0;
+    });
+  }
+};
