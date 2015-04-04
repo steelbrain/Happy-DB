@@ -52,8 +52,8 @@ Main.ActionEXPIRE = function(Request){
     let Value = Main.NormalizeType(Request[Number + 1]);
     if(typeof Value !== 'number')
       throw new Error("EXPIRE Expects even parameters to be numeric");
-    clearTimeout(Main.Timeouts[Key]);
-    Main.Timeouts[Key] = setTimeout(function(Key){
+    clearTimeout(this.Timeouts[Key]);
+    this.Timeouts[Key] = setTimeout(function(Key){
       Main.ActionDEL.call(this, [Key]);
     }.bind(this, Key), Value * 1000);
   }
