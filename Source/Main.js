@@ -140,6 +140,8 @@ Main.ARGS_ODD = 'ODD';
 
 Main.prototype.Timeouts = {};
 
+Main.H = require('./H');
+
 module.exports = Main;
 
 // Load the functions

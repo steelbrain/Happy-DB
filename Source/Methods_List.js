@@ -28,7 +28,7 @@ Main.ActionLPOP = function(Request){
   if(typeof Value !== 'undefined')
     Main.Validate(Main.VAL_LIST, 'LPOP', Value);
 
-  return (Value && Value.shift()) || '';
+  return Main.H.String((Value && Value.shift()));
 };
 
 Main.ActionRPUSH = function(Request){
@@ -54,7 +54,7 @@ Main.ActionRPOP = function(Request){
   if(typeof Value !== 'undefined')
     Main.Validate(Main.VAL_LIST, 'LPOP', Value);
 
-  return (Value && Value.pop()) || '';
+  return Main.H.String(Value && Value.pop());
 };
 
 Main.ActionLREM = function(Request){

@@ -235,9 +235,9 @@ Main.ActionHHGET = function(Request){
 
   Main.Validate(Main.VAL_HASH, 'HHGET', HValue);
   if(Request.length === 1){
-    return HValue.get(Request[0]) || '';
+    return Main.H.String(HValue.get(Request[0]));
   } else {
-    return Request.map((Name) => HValue.get(Name) || '')
+    return Request.map((Name) => Main.H.String(HValue.get(Name)))
   }
 };
 

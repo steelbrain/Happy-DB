@@ -15,10 +15,10 @@ Main.ActionSET = function(Request){
 
 Main.ActionGET = function(Request){
   if(Request.length === 1){
-    return this.Database.get(Request[0]) || '';
+    return Main.H.String(this.Database.get(Request[0]));
   }
   return Request.map(function(Name){
-    return this.Database.get(Name) || '';
+    return Main.H.String(this.Database.get(Name));
   }.bind(this));
 };
 
