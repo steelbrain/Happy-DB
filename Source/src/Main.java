@@ -5,8 +5,8 @@ import java.util.HashMap;
 public class Main {
   public static void main(String[] Args) {
     try {
-
-      int Port = 6378;
+      
+      int Port = 6379;
       String DBPath = null;
       HashMap<String, Object> Database = new HashMap<String, Object>();
 
@@ -27,7 +27,6 @@ public class Main {
       }
 
       ServerSocket SocketServer = new ServerSocket(Port);
-      System.out.println(DBPath);
 
       for(;;){
         Socket ClientSocket = SocketServer.accept();
@@ -36,7 +35,7 @@ public class Main {
         } catch(Exception e){}
       }
     } catch(Exception e){
-      System.out.println();
+      System.out.println(e.getMessage());
     }
   }
 }
