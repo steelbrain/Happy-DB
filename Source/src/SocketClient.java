@@ -19,7 +19,7 @@ public class SocketClient implements Runnable {
       DataOutputStream OutBound = new DataOutputStream(ClientSocket.getOutputStream());
       while (ClientSocket.isConnected()) {
         try {
-          String OutBuffer = RedisProto.Encode(String.join(" ", Happy.Handle(RedisProto.Decode(InBound))));
+          String OutBuffer = RedisProto.Encode(String.join(" ", Happy.Handle(Database, RedisProto.Decode(InBound))));
           OutBound.writeBytes(OutBuffer);
         } catch(HappyNullException e){
           OutBound.writeBytes("$-1\r\n");
