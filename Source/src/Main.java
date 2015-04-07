@@ -38,4 +38,9 @@ public class Main {
       System.out.println(e.getMessage());
     }
   }
+
+  public static String MSG_INVALID_REQUEST = "Invalid Number of Arguments";
+  public static boolean ValidateRequest(String[] Request, boolean isEven){
+    return isEven == (Request.length % 2==0);
+  }
 }
